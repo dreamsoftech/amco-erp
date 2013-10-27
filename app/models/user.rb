@@ -16,8 +16,11 @@ class User < ActiveRecord::Base
   scope :supervisor , joins(:roles).where("roles.name = 'supervisor'")
 
   def name
-    last_name = "" if last_name.nil?
-    return first_name + " " + last_name
+    begin
+      return self.first_name + " " + self.last_name
+    rescue
+      
+    end
   end
 
   def update_plan(role)

@@ -11,7 +11,7 @@
       <tbody>
         <tr>
           <td><b>Supervisor</b></td>
-          <td><%= @job_site.name %></td>
+          <td><%= @supervisor.name %></td>
           <td></td>
           <td></td>
         </tr>
@@ -35,6 +35,7 @@
             <tr>
               <th>#</th>
               <th>Lot</th>
+              <th>Vendor</th>
               <th>Product</th>
               <th>Price</th>
               <th>Quantity</th>
@@ -45,6 +46,7 @@
               <tr>
                 <td><%= line_item.id %></td>
                 <td><%= line_item.lot.name unless line_item.lot.nil? %></td>
+                <td><%= line_item.location.name unless line_item.location.nil? %></td>
                 <td><%= line_item.product.name unless line_item.product.nil? %></td>
                 <td><%= line_item.product.price unless line_item.product.nil? %></td>
                 <td><%= line_item.quantity %></td>

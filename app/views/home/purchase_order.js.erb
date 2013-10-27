@@ -16,7 +16,7 @@ if (!lot_budgets.empty)
 	$("#left_budget").text(<%= @lots.first.left_budget %>);
 
 if (!product_prices.empty)
-	$("span#product_price").text(<%= products.first.price %>);
+	$("span#product_price").text(<%= products.first.price if products.size > 0 %>);
 
 $("select#lots").on("change", function(){
 	var index = parseInt($("select#lots option:selected").val());

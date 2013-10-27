@@ -8,7 +8,7 @@
     <div class="row-fluid">
       <%= simple_form_for @supplier, url: suppliers_path, :html => {:method => :post, :class => 'form-horizontal' } do |f| %>
         <div class="col-sm-6">
-          <%= render partial: "form", locals: {f: f} %>
+          <%= render partial: "form", locals: {f: f, action: "new"} %>
 
           <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131018141317) do
+ActiveRecord::Schema.define(:version => 20131025215128) do
 
   create_table "developers", :force => true do |t|
     t.string   "name"
@@ -44,9 +44,17 @@ ActiveRecord::Schema.define(:version => 20131018141317) do
     t.integer  "product_id"
     t.integer  "purchase_order_id"
     t.integer  "lot_id"
+    t.integer  "location_id"
     t.integer  "quantity"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.integer  "supplier_id"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "lots", :force => true do |t|
@@ -79,9 +87,10 @@ ActiveRecord::Schema.define(:version => 20131018141317) do
 
   create_table "purchase_orders", :force => true do |t|
     t.integer  "phase_id"
+    t.decimal  "total_amount"
     t.string   "note"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -104,7 +113,6 @@ ActiveRecord::Schema.define(:version => 20131018141317) do
 
   create_table "suppliers", :force => true do |t|
     t.string   "name"
-    t.string   "location"
     t.string   "email"
     t.string   "phone"
     t.string   "fax"

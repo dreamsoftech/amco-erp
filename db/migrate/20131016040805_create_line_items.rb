@@ -4,6 +4,7 @@ class CreateLineItems < ActiveRecord::Migration
     	t.references :product
     	t.references :purchase_order
     	t.references :lot
+    	t.references :location
     	t.integer :quantity
 
       t.timestamps

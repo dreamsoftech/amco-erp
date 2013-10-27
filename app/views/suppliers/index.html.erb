@@ -26,7 +26,7 @@
 	      <% @suppliers.each do |supplier| %>
 	        <tr>
 	          <td><%= supplier.name %></td>
-	          <td><%= supplier.location %></td>
+	          <td><%= supplier.locations.first.name unless supplier.locations.first.nil? %></td>
 	          <td><%= supplier.email %></td>
 	          <td><%= supplier.phone %></td>
 	          <td><%= supplier.fax %></td>

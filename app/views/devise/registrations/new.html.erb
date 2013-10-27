@@ -1,38 +1,57 @@
-<% content_for :head do %>
-  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
-<% end %>
-<h2>Sign up</h2>
-<div id="stripe_error" class="alert alert-error" style="display:none" >
-</div>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
-  <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
-  <%= hidden_field_tag 'plan', params[:plan] %>
-  <%= f.error_notification %>
-  <%= display_base_errors resource %>
-  <%= f.input :name, :autofocus => true %> 
-  <%= f.input :email, :required => true %>
-  <%= f.input :password, :required => true %>
-  <%= f.input :password_confirmation, :required => true %>
-  <% if @user.stripe_token %>
-    <p>Credit card acceptance is pending.</p>
-  <% else %>
-    <div class="field">
-      <%= label_tag :card_number, "Credit Card Number" %>
-      <%= text_field_tag :card_number, nil, name: nil %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_code, "Card Security Code (CVV)" %>
-      <%= text_field_tag :card_code, nil, name: nil %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_month, "Card Expiration" %>
-      <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
-    </div>
-    <div class="field">
-      <%= f.input :coupon, :label => 'Promotional Coupon (if any)' %>
-    </div>
+<div class="account-container register stacked">
+  
+  <div class="content clearfix">
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+
+    <h1>Create Your Account</h1>      
+        
+<!--     <div class="login-social">
+      <p>Sign in using social network:</p>
+      
+      <div class="twitter">
+        <a href="#" class="btn_1">Login with Twitter</a>        
+      </div>
+      
+      <div class="fb">
+        <a href="#" class="btn_2">Login with Facebook</a>       
+      </div>
+    </div> -->
+    <div class="login-fields">
+      <%= hidden_field_tag 'plan', params[:plan] %>
+      
+      <p>Create your free account:</p>
+      
+      <div class="field">
+        <%= f.input :first_name, input_html: { class: "form-control" }, placeholder: "First Name", :autofocus => true %> 
+      </div> <!-- /field -->
+      
+      <div class="field">
+        <%= f.input :last_name, input_html: { class: "form-control" }, placeholder: "Last Name", :autofocus => true %> 
+      </div> <!-- /field -->
+      
+      
+      <div class="field">
+        <%= f.input :email, input_html: { class: "form-control" }, placeholder: "Email", :autofocus => true %> 
+      </div> <!-- /field -->
+      
+      <div class="field">
+        <%= f.input :password, input_html: { class: "form-control" }, placeholder: "Password", :autofocus => true %> 
+      </div> <!-- /field -->
+      
+      <div class="field">
+        <%= f.input :password_confirmation, input_html: { class: "form-control" }, placeholder: "Password Confirmation", :autofocus => true %> 
+      </div> <!-- /field -->
+      
+    </div> <!-- /login-fields -->
+
+    <div class="login-actions">
+      <span class="login-checkbox">
+        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+        <label class="choice" for="Field">I have read and agree with the Terms of Use.</label>
+      </span>
+      <button class="login-action btn btn-primary">Register</button>
+      
+    </div> <!-- .actions -->
   <% end %>
-  <%= f.hidden_field :stripe_token %>
-  <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>
-<% end %>
+  </div>
+</div>

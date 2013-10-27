@@ -7,4 +7,21 @@ class JobSite < ActiveRecord::Base
 
   has_many :phases, dependent: :destroy
 
+  def purchased
+  	total_purchased = 0
+    phases.each do |phase|
+      total_purchased += phase.purchased
+    end
+
+    return total_purchased
+  end
+
+  def total_budget
+    budget = 0
+    phases.each do |phase|
+      budget += phase.total_budget
+    end
+
+    return budget
+  end
 end

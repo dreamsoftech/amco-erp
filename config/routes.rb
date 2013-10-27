@@ -1,6 +1,8 @@
 Amco::Application.routes.draw do
 
   get "/new_purchase_order" => 'home#new_purchase_order'
+  get "/dashboard" => 'dashboard#index'
+  
   
   authenticated :user do
     root :to => 'home#index'
@@ -26,7 +28,9 @@ Amco::Application.routes.draw do
   
   resources :products
   resources :purchase_orders
+  resources :locations
   
   resources :events
+  # resources :dashboard, :only => ["index"]
 
 end

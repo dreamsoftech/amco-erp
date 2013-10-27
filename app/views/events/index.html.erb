@@ -8,8 +8,9 @@
   	<div class="row-fluid">
 	  	<form method="get" action="/events"> 
 	  		<div class="col-md-8 col-sm-12 pull-right text-right margin-right-20">
-		      From <input type="text" name="from" class="date-picker"/>
-		      To <input type="text" name="from" class="date-picker"/>
+		      From <%= text_field_tag :from, cookies[:from], class: "date-picker" %>
+		      
+		      To <%= text_field_tag :to, cookies[:to], class: "date-picker" %>
 					<button class="btn btn-default" id="add_phase_btn">Search</button>
 	    	</div>
 			</form>

@@ -62,8 +62,8 @@ upgrading in the future easier. ***
   .navbar {
     padding-left: 10px;
     padding-right: 10px;
-    margin-right: -20px;
-    margin-left: -20px;
+    *margin-right: -20px;
+    *margin-left: -20px;
   }
   .navbar .navbar-nav > li > .dropdown-menu::before,
   .navbar .navbar-nav > li > .dropdown-menu::after {
@@ -125,8 +125,8 @@ upgrading in the future easier. ***
     width: 100%;
   }
   .subnavbar {
-    margin-left: -20px;
-    margin-right: -20px;
+    *margin-left: -20px;
+    *margin-right: -20px;
   }
   .subnavbar .btn-subnavbar {
     display: block;

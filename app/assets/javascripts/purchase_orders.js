@@ -43,6 +43,11 @@ $(function(){
 		template.find("#product_quantity > input").val($("#quantity").val());
 		template.find("#product_quantity > input").attr("name", "quantities[]");
 
+		template.find("#location_name > span").text($("#locations option:selected").text());
+		template.find("#location_name > input").val($("#select#locations").val());
+		template.find("#location_name > input").attr("id", $("#locations").val()); // put the location index into input id field
+		template.find("#location_name > input").attr("name", "location_ids[]");
+
 		template.removeClass("hidden");
 		$("#order_line_list tbody").append(template);
 	});

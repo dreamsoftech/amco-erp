@@ -1,5 +1,6 @@
 class PurchaseOrdersController < ApplicationController
-  before_filter :authenticate_user!, :admin_authorization
+  before_filter :authenticate_user!
+  before_filter :admin_authorization, only: [:index]
 
   def index
   	@purchase_orders = PurchaseOrder.paginate(page: params[:page], per_page: 10)
@@ -12,7 +13,7 @@ class PurchaseOrdersController < ApplicationController
     lot_ids     = params[:lot_ids]
 
     if purchase_order.save
-
+      total_amount = 0
       product_ids.each_with_index do |p, i|
         begin
           line_item = purchase_order.line_items.build
@@ -20,9 +21,15 @@ class PurchaseOrdersController < ApplicationController
           line_item.quantity = quantities[i]
           line_item.lot_id = lot_ids[i]
           line_item.save
+          total_amount += line_item.product.price * line_item.quantity
+          
         rescue
         end
       end
+      puts "---------------------"
+      puts total_amount
+      purchase_order.update_attributes(total_amount: total_amount) # update total amount
+
       create_event("Purchase Order(#{purchase_order.id}) is created.")
 
       InvoiceMailer.send_mail(purchase_order).deliver # send email

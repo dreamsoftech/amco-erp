@@ -11,14 +11,16 @@ class SuppliersController < ApplicationController
   def create
   	supplier = Supplier.new(params[:supplier])
     if supplier.save
-      product_ids = params[:products].keys
+      unless params[:products].nil?
+        product_ids = params[:products].keys
 
-      product_ids.each do |product_id|
-        supplier_product = SupplierProduct.new
-        supplier_product.product_id = product_id
-        supplier_product.supplier_id = supplier.id
+        product_ids.each do |product_id|
+          supplier_product = SupplierProduct.new
+          supplier_product.product_id = product_id
+          supplier_product.supplier_id = supplier.id
 
-        supplier_product.save
+          supplier_product.save
+        end
       end
       create_event("Supplier(#{supplier.name}) is created.")
 
@@ -35,6 +37,7 @@ class SuppliersController < ApplicationController
 
   def new
     @supplier = Supplier.new
+    @supplier.locations.build
     @products = Product.all
   end
 
@@ -42,11 +45,42 @@ class SuppliersController < ApplicationController
     @supplier = Supplier.find(params[:id])
     @products = Product.all
     @supplier_products = @supplier.supplier_products
+    @supplier_product_ids = Array.new
+
+    @supplier_products.each do |sp|
+      @supplier_product_ids.push sp.product_id
+    end
   end
 
   def update
   	supplier = Supplier.find(params[:id])
   	if supplier.update_attributes params[:supplier]
+      
+      # update location info
+      unless params[:locations].nil?
+        params[:locations].each do |loc|
+          next if loc == ""
+          location = supplier.locations.build
+          location.name = loc
+
+          location.save
+        end
+      end
+
+      # refresh product list
+      supplier.products.destroy_all
+      unless params[:products].nil?
+        product_ids = params[:products].keys
+
+        product_ids.each do |product_id|
+          supplier_product = SupplierProduct.new
+          supplier_product.product_id = product_id
+          supplier_product.supplier_id = supplier.id
+
+          supplier_product.save
+        end
+      end
+
       create_event("Supplier(#{supplier.name}) is updated.")
   		redirect_to suppliers_path, notice: "Supplier is successfully updated."
   	else

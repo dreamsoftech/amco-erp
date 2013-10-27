@@ -9,7 +9,6 @@ class LotsController < ApplicationController
   def show
     @lot = Lot.find(params[:id])
     @lot = Lot.new
-    @lots = @lot.lots
   end
 
   def create
@@ -37,7 +36,7 @@ class LotsController < ApplicationController
 		@lot = Lot.find(params[:id])
 
 		if @lot.destroy
-      create_event("Lot(#{lot.name}) is deleted.")
+      create_event("Lot(#{@lot.name}) is deleted.")
       render json: @lot
     else
       respond_with(@lot.errors, status: :unprocessable_entity)
