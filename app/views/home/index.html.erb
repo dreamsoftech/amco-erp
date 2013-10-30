@@ -92,7 +92,7 @@
       
       <div class="cirque-stats">
         <% @job_sites.each do |job_site| %>
-          <div class="pull-left ui-tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="$<%= number_with_delimiter(job_site.purchased, delimiter: ',') %> / $<%= number_with_delimiter(job_site.total_budget, delimiter: ',') %>">
+          <div class="pull-left ui-tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="$<%= number_with_delimiter(job_site.purchased, delimiter: ',') %> spent out of $<%= number_with_delimiter(job_site.total_budget, delimiter: ',') budget%>">
             <div class="ui-cirque" data-value="<%= job_site.purchased %>" data-total="<%= job_site.total_budget %>" data-arc-color="#FF9900" data-label="percent">
             </div>
             <h5 class="text-center"><%= job_site.name %></h5>
