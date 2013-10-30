@@ -16,7 +16,7 @@ module ApplicationHelper
     controllers_in_admin_panel  = %w[developers job_sites phases suppliers products purchase_orders]
     controllers_in_logs         = %w[emails events]
     controllers_in_settings     = %w[settings users]
-    controllers_in_home         = %w[home]
+    controllers_in_home         = %w[home dashboard]
 
     if controllers_in_admin_panel.include? controller.controller_name
       return "admin"

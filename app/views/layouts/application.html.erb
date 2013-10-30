@@ -19,9 +19,7 @@
             
             <%= render 'layouts/messages' %>
             <% if current_panel == "" %>
-              <div class="col-sm-12">
-                <%= yield %>
-              </div>
+              <%= yield %>
             <% else %>
               <div class="col-sm-4 col-md-3">
                 <%= render 'layouts/leftbar' %>

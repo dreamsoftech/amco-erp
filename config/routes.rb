@@ -3,7 +3,9 @@ Amco::Application.routes.draw do
   get "/new_purchase_order" => 'home#new_purchase_order'
   get "/dashboard" => 'dashboard#index'
   
-  
+  authenticated :admin_user do
+    root :to => "dashboard#index"
+  end
   authenticated :user do
     root :to => 'home#index'
   end

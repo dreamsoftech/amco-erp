@@ -3,13 +3,21 @@ class HomeController < ApplicationController
   before_filter :admin_authorization, only: ["dashboard"]
 	
 	def index
-		if current_user.roles.first.name == "admin"
-			redirect_to "/dashboard"
-		end
+		# if current_user.roles.first.name == "admin"
+		# 	redirect_to "/dashboard"
+		# end
 
 		unless params[:job_site_id].nil?
 			@job_site = JobSite.find(params[:job_site_id])
 			@phases = @job_site.phases unless @job_site.nil?
+		end
+		
+		if current_user.roles.first.name == "admin"
+			@job_sites = JobSite.all
+			@spendings_today = PurchaseOrder.where("created_at >= ?", DateTime.now.beginning_of_day).sum(:total_amount)
+			@spendings_this_month = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).sum(:total_amount)
+			@spendings_timeline = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).sum(:total_amount, :group => "strftime('%d', created_at)")
+			@max_payment = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).maximum(:total_amount)
 		end
 	end
 

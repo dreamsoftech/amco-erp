@@ -1,0 +1,33 @@
+<script>
+$(function () {
+	// we use an inline data source in the example, usually data would
+	// be fetched from a server
+	var data = [], totalPoints = 200;
+	function getChartData() {
+		var res = [];
+		<% @spendings_timeline.each do |s| %>
+			res.push([<%= s[0] %>, <%= s[1] %>]);
+		<% end %>
+		return res;
+	}
+
+	// setup plot
+	var options = {
+		yaxis: { min: 0, max: <%= @max_payment + 100 %> },
+		xaxis: { min: 0, max: 31 },
+		colors: ["#F90", "#222", "#666", "#BBB"],
+		series: {
+				   lines: { 
+						lineWidth: 2, 
+						fill: true,
+						fillColor: { colors: [ { opacity: 0.6 }, { opacity: 0.2 } ] },
+						steps: false
+
+					}
+			   }
+	};
+	if ($("#area-chart").length > 0)
+		var plot = $.plot($("#area-chart"), [getChartData()], options);
+});
+
+</script>

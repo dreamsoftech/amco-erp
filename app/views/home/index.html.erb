@@ -1,46 +1,119 @@
-<div class="widget stacked">   
-  <div class="widget-header">
-    <h3>
-      <% if @job_site.nil? %>
-        Job Site
-      <% else %>
-        <%= @job_site.name %>
-      <% end %>
-    </h3>
-  </div> <!-- /widget-header -->
-  
-  <div class="widget-content min-height-200">
-    <% unless @phases.nil? %>
-      <% @phases.each do |phase| %>
-          <h4><b><%= phase.name %></b> - <%= sprintf("%.1f", phase.left_budget_percent) %>% </h4>
-          <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Lot No</th>
-                <th>Budget Progress</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% phase.lots.each do |lot| %>
-              <tr>
-                <td><%= lot.id %></td>
-                <td><%= lot.name %></td>
-                <td>
-                  <div class="progress">
-                    <% progress = lot.left_budget_percent %>
-                    <div class="progress-bar" role="progressbar" aria-valuenow="<%= progress %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= progress %>%;">
-                      <span><%= sprintf("%.1f", progress) %>% of budget left</span>
+<div class="col-md-12">
+  <div class="widget stacked">   
+    <div class="widget-header">
+      <h3>
+        <% if @job_site.nil? %>
+          Job Site
+        <% else %>
+          <%= @job_site.name %>
+        <% end %>
+      </h3>
+    </div> <!-- /widget-header -->
+    
+    <div class="widget-content min-height-200">
+      <% unless @phases.nil? %>
+        <% @phases.each do |phase| %>
+            <h4><b><%= phase.name %></b> - <%= sprintf("%.1f", phase.left_budget_percent) %>% </h4>
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Lot No</th>
+                  <th>Budget Progress</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% phase.lots.each do |lot| %>
+                <tr>
+                  <td><%= lot.id %></td>
+                  <td><%= lot.name %></td>
+                  <td>
+                    <div class="progress">
+                      <% progress = lot.left_budget_percent %>
+                      <div class="progress-bar" role="progressbar" aria-valuenow="<%= progress %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= progress %>%;">
+                        <span><%= sprintf("%.1f", progress) %>% of budget left</span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td><%= link_to "Purchase", "/new_purchase_order?lot_id=#{lot.id}&developer_id=#{@developer_id}&job_site_id=#{@job_site.id}", class: "btn btn-primary btn-sm" %></td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
+                  </td>
+                  <td><%= link_to "Purchase", "/new_purchase_order?lot_id=#{lot.id}&developer_id=#{@developer_id}&job_site_id=#{@job_site.id}", class: "btn btn-primary btn-sm" %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+        <% end %>
       <% end %>
-    <% end %>
-  </div> <!-- /widget-content -->
+    </div> <!-- /widget-content -->
+  </div>
+</div>
+
+<div class="col-md-6 col-xs-12">
+  <div class="widget stacked">
+
+    <div class="widget-header">
+      <i class="icon-star"></i>
+      <h3>Quick Stats</h3>
+    </div> <!-- /widget-header -->
+    
+    <div class="widget-content min-height-200">
+      
+      <div class="stats">
+        
+        <div class="stat">
+          <span class="stat-value">$<%= @spendings_today %></span>                  
+          Spent Today
+        </div> <!-- /stat -->
+        
+        <div class="stat">
+          <span class="stat-value">$<%= @spendings_this_month %></span>
+          Spent This Month
+        </div> <!-- /stat -->
+        
+        <div class="stat">
+          <span class="stat-value"><%= JobSite.count %></span>                 
+          Present Job Sites
+        </div> <!-- /stat -->
+        
+      </div> <!-- /stats -->
+    </div> <!-- /widget-content -->
+  </div> <!-- /widget -->
+</div>
+
+<div class="col-md-6 col-xs-12">
+      
+  <div class="widget stacked">
+    
+    <div class="widget-header">
+      <i class="icon-bar-chart"></i>
+      <h3>Job Sites</h3>
+    </div> <!-- /widget-header -->
+    
+    <div class="widget-content min-height-200">
+      
+      <div class="cirque-stats">
+        <% @job_sites.each do |job_site| %>
+          <div class="pull-left ui-tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="$<%= number_with_delimiter(job_site.purchased, delimiter: ',') %> / $<%= number_with_delimiter(job_site.total_budget, delimiter: ',') %>">
+            <div class="ui-cirque" data-value="<%= job_site.purchased %>" data-total="<%= job_site.total_budget %>" data-arc-color="#FF9900" data-label="percent">
+            </div>
+            <h5 class="text-center"><%= job_site.name %></h5>
+          </div>
+        <% end %>
+      </div> <!-- /.cirque-stats -->
+    </div> <!-- /widget-content -->
+  </div> <!-- /widget --> 
+</div> <!-- /.span6 -->
+<div class="col-md-12 col-xs-12">
+  <div class="widget stacked">
+            
+    <div class="widget-header">
+      <i class="icon-signal"></i>
+      <h3>Chart</h3>
+    </div> <!-- /widget-header -->
+    
+    <div class="widget-content">          
+      <div id="area-chart" class="chart-holder"></div>          
+    </div> <!-- /widget-content -->
+    <%= render template: "/dashboard/chart.js.erb" %>
+    
+  </div> <!-- /widget -->
 </div>
