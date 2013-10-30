@@ -13,7 +13,7 @@ $(function () {
 
 	// setup plot
 	var options = {
-		yaxis: { min: 0, max: <%= @max_payment + 100 %> },
+		yaxis: { min: 0, max: <%= @max_payment.nil? ? 0 : @max_payment %> + 100 },
 		xaxis: { min: 0, max: 31 },
 		colors: ["#F90", "#222", "#666", "#BBB"],
 		series: {
