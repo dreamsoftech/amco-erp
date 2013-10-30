@@ -54,7 +54,6 @@
     </div> <!-- /widget-header -->
     
     <div class="widget-content min-height-200">
-      
       <div class="cirque-stats">
         <% @job_sites.each do |job_site| %>
           <div class="pull-left ui-tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="$<%= number_with_delimiter(job_site.purchased, delimiter: ',') %> / $<%= number_with_delimiter(job_site.total_budget, delimiter: ',') %>">

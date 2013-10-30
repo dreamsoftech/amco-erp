@@ -24,8 +24,6 @@ module ApplicationHelper
       return "logs"
     elsif controllers_in_settings.include? controller.controller_name
       return "settings"
-    elsif controllers_in_home.include? controller.controller_name
-      return "home"
     else
       return ""
     end
