@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 			@job_sites = JobSite.all
 			@spendings_today = PurchaseOrder.where("created_at >= ?", DateTime.now.beginning_of_day).sum(:total_amount)
 			@spendings_this_month = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).sum(:total_amount)
-			@spendings_timeline = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).sum(:total_amount, :group => "strftime('%d', created_at)")
+			@spendings_timeline = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).sum(:total_amount, :group => "MONTH(created_at)")
 			@max_payment = PurchaseOrder.where("created_at >= ?", Date.today.at_beginning_of_month).maximum(:total_amount)
 		end
 	end

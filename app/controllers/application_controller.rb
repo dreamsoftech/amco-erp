@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     case current_user.roles.first.name
       when 'admin'
-        "/dashboard"
+        root_path
       else
         root_path
     end
