@@ -72,11 +72,7 @@ upgrading in the future easier. ***
   .subnavbar .subnav-toggle {
     display: block;
   }
-  #main {
-    padding: 0 10px;
-    margin-right: -20px;
-    margin-left: -20px;
-  }
+  
   .extra {
     margin-right: -20px;
     margin-left: -20px;
