@@ -38,7 +38,7 @@ class PhasesController < ApplicationController
 		@phase = Phase.find(params[:id])
 
 		if @phase.destroy
-      create_event("Phase(#{phase.name}) is deleted.")
+      create_event("Phase(#{@phase.name}) is deleted.")
       render json: @phase
     else
       respond_with(@phase.errors, status: :unprocessable_entity)
